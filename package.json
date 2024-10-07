@@ -1,10 +1,30 @@
 {
   "name": "rc40-challenge21",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryajava/rc40-challenge20.git"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "expressjs",
+    "ejs",
+    "sqlite3",
+    "breads",
+    "pagination"
+  ],
+  "author": "aryajava",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/aryajava/rc40-challenge21/issues"
+  },
+  "homepage": "https://github.com/aryajava/rc40-challenge21#readme",
+  "description": "This BREADS (Browse, Read, Edit, Add, Delete, Sort) project is Express JS application with EJS template engine.",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -12,5 +32,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
