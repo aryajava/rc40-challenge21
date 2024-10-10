@@ -23,7 +23,7 @@ router.get("/", checkSession, async (req, res, next) => {
 });
 
 router.get("/add", checkSession, (_, res) => {
-  res.render("todos/form", { title: "Adding Data", todo: {} });
+  res.render("todos/form", { title: "Adding Data", todo: null });
 });
 
 router.post("/add", checkSession, async (req, res, next) => {
