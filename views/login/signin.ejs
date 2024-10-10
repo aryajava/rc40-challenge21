@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-3 mx-auto">
     <div class="row mt-5">
-      <img src="https://rubicamp.com/assets/img/logo-dark.png" class="img-fluid rounded-top mx-auto d-block" alt="Rubicamp" />
+      <img src="/img/logo-dark.png" class="img-fluid mx-auto" alt="Rubicamp Logo" />
     </div>
     <div class="row">
       <h3 class="text-center">Please sign in</h3>
@@ -17,22 +17,16 @@
             </li>
           </ul>
         </div>
-        <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: large; font-weight: bold">Sign in</button>
+        <button type="submit" class="btn btn-primary w-100 py-2 fs-5 fw-medium">Sign in</button>
       </form>
-      <div class="form-text text-center">Doesn't have an account? Please <a href="/register">Sign up</a></div>
+      <div class="form-text text-center fs-6 fw-medium">Doesn't have a account? Please <a href="/register">Sign up</a></div>
     </div>
-    <div class="row text-center">
-      <div class="mt-5">
-        <p style="color: #6c757d">©️ 2017-2023</p>
-      </div>
-      <div class="mt-2">
-        <% if (success && success.length > 0) { %>
-        <div class="alert alert-success" role="alert"><%= success %></div>
-        <% } %> <% if (error && error.length > 0) { %>
-        <div class="alert alert-danger" role="alert"><%= error %></div>
-        <% } %>
-      </div>
-    </div>
+    <p class="text-muted text-center fs-6 mt-5">©️ 2017-2023</p>
+    <% if (success && success.length > 0) { %>
+    <div class="alert text-center alert-success fs-5 mt-3" role="alert"><%= success %></div>
+    <% } %> <% if (error && error.length > 0) { %>
+    <div class="alert text-center alert-danger fs-5 mt-3" role="alert"><%= error %></div>
+    <% } %>
   </div>
 </div>
 

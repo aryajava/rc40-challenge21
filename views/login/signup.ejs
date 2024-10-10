@@ -2,11 +2,11 @@
 <div class="row">
   <div class="col-3 mx-auto">
     <div class="row mt-5">
-      <img src="https://rubicamp.com/assets/img/logo-dark.png" class="img-fluid rounded-top mx-auto d-block" alt="Rubicamp" />
+      <img src="/img/logo-dark.png" class="img-fluid mx-auto" alt="Rubicamp Logo" />
     </div>
     <div class="row">
       <h3 class="text-center">Please sign up</h3>
-      <form action="/register" method="post">
+      <form action="" method="post">
         <div class="card signin mx-auto mb-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -20,20 +20,14 @@
             </li>
           </ul>
         </div>
-        <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: large; font-weight: bold">Sign up</button>
+        <button type="submit" class="btn btn-primary w-100 py-2 fs-5 fw-medium">Sign up</button>
       </form>
-      <p class="text-center" style="font-size: large">Have a account? Please <a href="/">Sign in</a></p>
+      <p class="text-center fs-6 fw-medium">Have a account? Please <a href="/">Sign in</a></p>
     </div>
-    <div class="row text-center">
-      <div class="mt-5">
-        <p style="color: #6c757d">©️ 2017-2023</p>
-      </div>
-      <div class="mt-2">
-        <% if (error && error.length > 0) { %>
-        <div class="alert alert-danger" role="alert"><%= error %></div>
-        <% } %>
-      </div>
-    </div>
+    <p class="text-muted text-center fs-6 mt-5">©️ 2017-2023</p>
+    <% if (error && error.length > 0) { %>
+    <div class="alert text-center alert-danger fs-5 mt-3" role="alert"><%= error %></div>
+    <% } %>
   </div>
 </div>
 
