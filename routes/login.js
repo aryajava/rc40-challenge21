@@ -3,21 +3,22 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { getByEmail, create } = require("../models/Login");
 
-router.get("/", function (req, res, next) {
+const checkSession = (req, res, next) => {
   if (req.session.user) {
     return res.redirect("/todos");
   }
+  next();
+};
+
+router.get("/", checkSession, (req, res) => {
   res.render("login/signin", { title: "Signin - Rubicamp", success: req.flash("success"), error: req.flash("error") });
 });
 
-router.get("/register", function (req, res, next) {
-  if (req.session.user) {
-    return res.redirect("/todos");
-  }
+router.get("/register", checkSession, function (req, res) {
   res.render("login/signup", { title: "Register - Rubicamp", error: req.flash("error") });
 });
 
-router.post("/", async function (req, res, next) {
+router.post("/", checkSession, async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await getByEmail(email);
@@ -39,27 +40,34 @@ router.post("/", async function (req, res, next) {
   }
 });
 
-router.post("/register", function (req, res, next) {
+router.post("/register", checkSession, async (req, res) => {
   const { email, password, retype } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
-
   if (password !== retype) {
     req.flash("error", "Password does not match");
     res.redirect("/register");
     return;
   }
-
-  getByEmail(email).then((user) => {
-    if (user) {
+  try {
+    const getUser = await getByEmail(email);
+    if (getUser) {
       req.flash("error", "Email already registered");
       res.redirect("/register");
     } else {
-      create(email, hashedPassword).then(() => {
-        req.flash("success", "Registration successful. Please sign in.");
-        res.redirect("/");
-      });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await create(email, hashedPassword);
+      req.flash("success", "Registration successful. Please sign in.");
+      res.redirect("/");
     }
-  });
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "An unexpected error occurred");
+    res.redirect("/register");
+  }
+});
+
+router.get("/signout", checkSession, (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
 });
 
 module.exports = router;
