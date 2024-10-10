@@ -20,7 +20,7 @@ router.get("/", checkSession, function (req, res, next) {
 });
 
 router.get("/add", checkSession, function (req, res, next) {
-  res.render("todos/form", { title: "Add Todo" });
+  res.render("todos/form", { title: "Adding Data" });
 });
 
 router.post("/add", checkSession, function (req, res, next) {
@@ -32,7 +32,7 @@ router.post("/add", checkSession, function (req, res, next) {
 
 router.get("/edit/:id", checkSession, function (req, res, next) {
   getById(req.params.id).then((todo) => {
-    res.render("todos/form", { title: "Edit Todo", todo });
+    res.render("todos/form", { title: "Updating Data", todo });
   });
 });
 
