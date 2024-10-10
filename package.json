@@ -26,8 +26,10 @@
   "homepage": "https://github.com/aryajava/rc40-challenge21#readme",
   "description": "This BREADS (Browse, Read, Edit, Add, Delete, Sort) project is Express JS application with EJS template engine.",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
@@ -42,3 +44,4 @@
     "nodemon": "^3.1.7"
   }
 }
+

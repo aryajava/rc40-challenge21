@@ -1,0 +1,39 @@
+<%- include('../layout') %>
+<div class="row">
+  <div class="col-3 mx-auto">
+    <div class="row mt-5">
+      <img src="https://rubicamp.com/assets/img/logo-dark.png" class="img-fluid rounded-top mx-auto d-block" alt="Rubicamp" />
+    </div>
+    <div class="row">
+      <h3 class="text-center">Please sign up</h3>
+      <form action="/register" method="post">
+        <div class="card signin mx-auto mb-3">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <input type="email" class="form-control py-2" name="email" id="email" placeholder="Email address" required />
+            </li>
+            <li class="list-group-item">
+              <input type="password" class="form-control py-2" name="password" id="password" placeholder="Password" required />
+            </li>
+            <li class="list-group-item">
+              <input type="password" class="form-control py-2" name="retype" id="retype" placeholder="Retype Password" required />
+            </li>
+          </ul>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: large; font-weight: bold">Sign up</button>
+      </form>
+      <p class="text-center" style="font-size: large">Have a account? Please <a href="/">Sign in</a></p>
+    </div>
+    <div class="row text-center">
+      <div class="mt-5">
+        <p style="color: #6c757d">©️ 2017-2023</p>
+      </div>
+      <div class="mt-2">
+        <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,16 @@
+body {
+  background-color: #eee;
+}
+
+.signin ul li {
+  padding: 0px;
+  padding: 0.5em;
+}
+
+.signin ul li input {
+  border: 0;
+}
+.signin ul li input::placeholder {
+  font-weight: bold;
+}
+
