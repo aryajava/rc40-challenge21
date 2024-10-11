@@ -9,7 +9,7 @@ var fileupload = require("express-fileupload");
 
 var loginRouter = require("./routes/login");
 var todoRouter = require("./routes/todo");
-// var avatarRouter = require("./routes/avatar")(pool);
+var userRouter = require("./routes/user");
 
 var app = express();
 
@@ -42,7 +42,7 @@ app.use(
 
 app.use("/", loginRouter);
 app.use("/todos", todoRouter);
-// app.use("/avatar", avatarRouter, pool);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

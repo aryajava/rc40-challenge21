@@ -28,3 +28,8 @@ tbody tr.deadline td {
   --bs-gutter-x: 0 !important;
 }
 
+#profilePicture {
+  cursor: pointer;
+  width: 50px;
+}
+

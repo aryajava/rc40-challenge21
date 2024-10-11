@@ -7,32 +7,33 @@
       </div>
       <form action="" method="post">
         <div class="card-body">
-          <div class="d-flex flex-row align-items-center">
-            <div class="col-md-3">
-              <label for="title" class="">Title</label>
+          <div class="row mb-3">
+            <div class="col-md-3 align-self-center">
+              <label for="title">Title</label>
             </div>
-            <div class="col">
-              <input type="text" class="form-control" id="title" name="title" value="<%= todo ? todo.title : '' %>" required autocomplete="off" autofocus />
+            <div class="col-md-9 align-self-center">
+              <input type="text" class="form-control" name="title" value="<%= todo ? todo.title : '' %>" id="title" placeholder="Insert your title" required />
             </div>
           </div>
           <% if (todo) { %>
-          <div class="d-flex flex-row align-items-center">
-            <div class="col-md-3">
+          <div class="row mb-3">
+            <div class="col-md-3 align-self-center">
               <label for="deadline" class="">Deadline</label>
             </div>
-            <div class="col">
+            <div class="col-md-9 align-self-center">
               <% const date = new Date(todo.deadline); const year = date.getFullYear(); const month = String(date.getMonth() + 1).padStart(2, '0'); const day = String(date.getDate()).padStart(2, '0');
               const hours = String(date.getHours()).padStart(2, '0'); const minutes = String(date.getMinutes()).padStart(2, '0'); const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
               %>
               <input type="datetime-local" class="form-control" id="deadline" name="deadline" value="<%= formattedDate %>" required />
             </div>
           </div>
-          <div class="d-flex flex-row align-items-center">
-            <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-3 align-self-center">
               <label for="complete" class="">Complete</label>
             </div>
-            <div class="col">
-              <label for="complete"> <input type="checkbox" class="me-2" name="complete" id="complete" autocomplete="off" <%= todo.complete? 'checked': '' %> />Done</label>
+            <div class="col-md-9 align-self-center">
+              <input type="checkbox" class="form-check-input me-2" name="complete" id="complete" <%= todo.complete? 'checked': '' %> />
+              <label for="complete" class="form-check-label">Done</label>
             </div>
           </div>
           <% } %>

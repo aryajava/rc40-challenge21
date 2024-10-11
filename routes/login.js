@@ -16,7 +16,7 @@ router.get("/", checkSession, (req, res) => {
 });
 
 router.get("/register", checkSession, function (req, res) {
-  res.render("login/signup", { title: "Register - Rubicamp", error: req.flash("error") });
+  res.render("login/signup", { title: "Register - Rubicamp", success: req.flash("success"), error: req.flash("error") });
 });
 
 router.post("/", checkSession, async (req, res) => {

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getAll, getTotal, getById, create, update, remove } = require("../models/Todo.js");
+const { getAvatarByEmail } = require("../models/User.js");
 
 const checkSession = (req, res, next) => {
   if (!req.session.user) {
@@ -34,32 +35,25 @@ router.get("/", checkSession, async (req, res, next) => {
     params.push(complete === "true");
     queries.push(`complete = $${params.length + 1}`);
   }
-  console.log(params);
-  console.log(queries);
-
   try {
     const total = await getTotal(req.session.user.id, queries, params, operation);
-    console.log(total);
-    console.log(limit);
-    console.log(offset);
-
     const pages = Math.ceil(parseInt(total) / limit);
-    console.log(req.session.user.id);
-
     const todos = await getAll(req.session.user.id, sort, order, limit, offset, queries, params, operation);
-    console.log(todos);
-
+    const avatarResult = await getAvatarByEmail(req.session.user.email);
+    const avatar = avatarResult ? avatarResult.avatar : null;
+    const avatarPath = avatar ? `/images/${req.session.user.email}/${avatar}` : null;
     const searchPage = Object.keys(req.query)
       .filter((key) => key !== "page")
       .map((key) => key + "=" + req.query[key])
       .join("&");
 
     res.render("todos", {
-      user: req.session.user,
+      user: { ...req.session.user, avatarPath },
       title: "BREADS (Browse, Read, Edit, Add, Delete, Sort)",
       cardTitle: "PostgreSQL Breads (Browse, Read, Edit, Add, Delete, Sort)",
       todos,
       page: parseInt(page),
+      total,
       pages,
       offset,
       sort,
