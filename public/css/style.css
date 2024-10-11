@@ -14,3 +14,17 @@ body {
   font-weight: bold;
 }
 
+tbody tr.deadline td {
+  background-color: rgb(255, 87, 87) !important;
+  color: white;
+}
+
+.table > tbody {
+  vertical-align: middle !important;
+}
+
+.table > thead > tr,
+.table > tbody > tr {
+  --bs-gutter-x: 0 !important;
+}
+

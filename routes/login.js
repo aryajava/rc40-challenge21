@@ -5,7 +5,8 @@ const { getByEmail, create } = require("../models/Login");
 
 const checkSession = (req, res, next) => {
   if (req.session.user) {
-    return res.redirect("/todos");
+    res.redirect("/todos");
+    return;
   }
   next();
 };
@@ -53,6 +54,7 @@ router.post("/register", checkSession, async (req, res) => {
       req.flash("error", "Email already registered");
       res.redirect("/register");
     } else {
+      console.log(req.headers["content-type"]);
       const hashedPassword = await bcrypt.hash(password, 10);
       await create(email, hashedPassword);
       req.flash("success", "Registration successful. Please sign in.");
@@ -65,8 +67,10 @@ router.post("/register", checkSession, async (req, res) => {
   }
 });
 
-router.get("/signout", checkSession, (req, res) => {
-  req.session.destroy();
+router.get("/signout", (req, res) => {
+  if (req.session.user) {
+    req.session.destroy();
+  }
   res.redirect("/");
 });
 

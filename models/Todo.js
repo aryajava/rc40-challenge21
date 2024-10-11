@@ -1,7 +1,31 @@
 const db = require("../lib/con.js");
 
-const getAll = (user_id) => {
-  return db.query("SELECT t.* FROM todos as t LEFT JOIN users as u ON t.user_id = $1 ORDER BY t.id", [user_id]).then((result) => result.rows);
+const getAll = (user_id, sort, order, limit, offset, queries, params, operation) => {
+  const validSortColumns = ["title", "deadline", "complete"];
+  const validOrders = ["asc", "desc"];
+  if (!validSortColumns.includes(sort)) {
+    sort = "id";
+  }
+  if (!validOrders.includes(order)) {
+    order = "desc";
+  }
+  let query = `SELECT t.* FROM todos as t LEFT JOIN users as u ON t.user_id = u.id WHERE t.user_id = $1`;
+  if (queries.length > 0) {
+    query += ` AND ${queries.join(` ${operation} `)}`;
+  }
+  console.log("Params: ", params);
+  query += ` ORDER BY ${sort} ${order} LIMIT $${params.length + 2} OFFSET $${params.length + 3}`;
+  console.log("get all: ", query);
+  return db.query(query, [user_id, ...params, limit, offset]).then((result) => result.rows);
+};
+
+const getTotal = (user_id, queries, params, operation) => {
+  let query = "SELECT COUNT(*) AS total FROM todos WHERE user_id = $1";
+  if (queries.length > 0) {
+    query += ` AND ${queries.join(` ${operation} `)}`;
+  }
+  console.log("Total: ", query);
+  return db.query(query, [user_id, ...params]).then((result) => result.rows[0].total);
 };
 
 const getById = (id) => {
@@ -22,6 +46,7 @@ const remove = (id) => {
 
 module.exports = {
   getAll,
+  getTotal,
   getById,
   create,
   update,
