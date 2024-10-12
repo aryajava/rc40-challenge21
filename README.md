@@ -10,6 +10,7 @@ This BREADS (Browse, Read, Edit, Add, Delete, Sort) project is Express JS applic
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Contributing](#contributing)
   - [License](#license)
   - [Contact](#contact)
 
@@ -28,6 +29,10 @@ To start the application, use the following command:
 ```bash
 npm run dev
 ```
+
+## Contributing
+
+If you would like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
 ## License
 
