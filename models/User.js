@@ -1,11 +1,23 @@
 const db = require("../lib/con.js");
 
-const getAvatarByEmail = (email) => {
-  return db.query("SELECT avatar FROM users WHERE email = $1", [email]).then((result) => result.rows[0]);
+const getAvatarByEmail = async (email) => {
+  try {
+    const result = await db.query("SELECT avatar FROM users WHERE email = $1", [email]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error fetching avatar by email:", error);
+    throw error;
+  }
 };
 
-const uploadAvatar = (id, avatar) => {
-  return db.query("UPDATE users SET avatar = $1 WHERE id = $2 RETURNING *", [avatar, id]);
+const uploadAvatar = async (id, avatar) => {
+  try {
+    const result = await db.query("UPDATE users SET avatar = $1 WHERE id = $2 RETURNING *", [avatar, id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error uploading avatar:", error);
+    throw error;
+  }
 };
 
 module.exports = {
