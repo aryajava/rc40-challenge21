@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { getAll, getTotal, getById, create, update, remove } = require("../models/Todo.js");
-const { getAvatarByEmail } = require("../models/User.js");
+const { getAll, getTotal, getById, create, update, remove } = require("../models/Todo");
+const { getAvatarByEmail } = require("../models/User");
 
 const checkSession = (req, res, next) => {
   if (!req.session.user) {
@@ -118,4 +118,3 @@ router.post("/delete/:id", checkSession, async (req, res, next) => {
 });
 
 module.exports = router;
-

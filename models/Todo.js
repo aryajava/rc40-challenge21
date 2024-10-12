@@ -1,4 +1,4 @@
-const db = require("../lib/con.js");
+const db = require("../lib/config");
 
 const getAll = async (user_id, sort, order, limit, offset, queries, params, operation) => {
   const validSortColumns = ["title", "deadline", "complete"];
@@ -85,4 +85,3 @@ module.exports = {
   update,
   remove,
 };
-

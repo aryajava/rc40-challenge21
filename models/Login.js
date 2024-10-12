@@ -1,4 +1,4 @@
-const db = require("../lib/con.js");
+const db = require("../lib/config");
 
 const getByEmail = async (email) => {
   try {
