@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="card-header">
-        <h3 class="card-title text-center my-1 mx-auto"><%= cardTitle %></h3>
+        <h3 class="card-title text-center my-1 mx-auto"><%= title %></h3>
       </div>
       <div class="card-body">
         <form action="" method="get">
@@ -144,7 +144,7 @@
                 <!-- previous -->
                 <% if (page > 1) { %>
                 <li class="page-item">
-                  <a class="page-link" href="/todos?<%= searchPage %><%= sort ? '&sort=' + sort : '' %><%= order ? '&order=' + order : '' %>&page=<%= page - 1 %>" aria-label="Previous">
+                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page - 1 %>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
@@ -152,7 +152,7 @@
           
                 <!-- first page -->
                 <li class="page-item <%= page === 1 ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %><%= sort ? '&sort=' + sort : '' %><%= order ? '&order=' + order : '' %>&page=1">1</a>
+                  <a class="page-link" href="/todos?<%= searchPage %>&page=1">1</a>
                 </li>
           
                 <!-- ellipsis before -->
@@ -165,7 +165,7 @@
                 <!-- page range around current page -->
                 <% for (let i = Math.max(2, page - 1); i <= Math.min(pages - 1, page + 1); i++) { %>
                 <li class="page-item <%= i === page ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %><%= sort ? '&sort=' + sort : '' %><%= order ? '&order=' + order : '' %>&page=<%= i %>"><%= i %></a>
+                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= i %>"><%= i %></a>
                 </li>
                 <% } %>
           
@@ -179,14 +179,14 @@
                 <!-- last page -->
                 <% if (pages > 1) { %>
                 <li class="page-item <%= page === pages ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %><%= sort ? '&sort=' + sort : '' %><%= order ? '&order=' + order : '' %>&page=<%= pages %>"><%= pages %></a>
+                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= pages %>"><%= pages %></a>
                 </li>
                 <% } %>
           
                 <!-- next -->
                 <% if (page < pages) { %>
                 <li class="page-item">
-                  <a class="page-link" href="/todos?<%= searchPage %><%= sort ? '&sort=' + sort : '' %><%= order ? '&order=' + order : '' %>&page=<%= page + 1 %>" aria-label="Next">
+                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page + 1 %>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
@@ -194,7 +194,6 @@
               <% } %> 
             </ul>
           </nav>
-          
         </div>
       </div>
     </div>

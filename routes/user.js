@@ -17,7 +17,7 @@ router.get("/avatar", checkSession, async (req, res, next) => {
   try {
     const avatar = await getAvatarByEmail(req.session.user.email);
     const avatarPath = avatar && avatar.avatar ? `/images/${req.session.user.email}/${avatar.avatar}` : "/images/default256.png";
-    res.render("user/avatar", { title: "Upload Avatar", user: { avatar, avatarPath } });
+    res.render("user/avatar", { title: "Upload Avatar", user: { avatar, avatarPath }, success: req.flash("success"), error: req.flash("error") });
   } catch (error) {
     next(error);
   }
@@ -25,6 +25,7 @@ router.get("/avatar", checkSession, async (req, res, next) => {
 
 router.post("/avatar", checkSession, async (req, res, next) => {
   if (!req.files || Object.keys(req.files).length === 0) {
+    req.flash("error", "No files uploaded.");
     res.redirect("/user/avatar");
     return;
   }
@@ -40,11 +41,10 @@ router.post("/avatar", checkSession, async (req, res, next) => {
   try {
     // await sharp(avatar.data).resize(64, 64).toFile(avatar64Path);
     await sharp(avatar.data).resize(256, 256).toFile(avatar256Path);
-    console.log("Files uploaded to " + userDir);
     await uploadAvatar(req.session.user.id, `${timestamp}_avatar256.jpg`);
 
-    req.session.user.avatar = `${email}/${timestamp}_avatar256.jpg`; // Update session with new avatar
-
+    req.session.user.avatar = `${email}/${timestamp}_avatar256.jpg`;
+    req.flash("success", "Avatar updated.");
     res.redirect("/todos");
   } catch (error) {
     next(error);

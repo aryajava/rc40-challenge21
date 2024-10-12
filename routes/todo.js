@@ -23,13 +23,13 @@ router.get("/", checkSession, async (req, res, next) => {
   }
   if (startdate && lastdate) {
     params.push(startdate, lastdate);
-    queries.push(`deadline BETWEEN $${params.length} AND $${params.length + 1}`);
+    queries.push(`DATE(deadline) BETWEEN $${params.length} AND $${params.length + 1}`);
   } else if (startdate) {
     params.push(startdate);
-    queries.push(`deadline >= $${params.length + 1}`);
+    queries.push(`DATE(deadline) >= $${params.length + 1}`);
   } else if (lastdate) {
     params.push(lastdate);
-    queries.push(`deadline <= $${params.length + 1}`);
+    queries.push(`DATE(deadline) <= $${params.length + 1}`);
   }
   if (complete) {
     params.push(complete === "true");
@@ -39,18 +39,16 @@ router.get("/", checkSession, async (req, res, next) => {
     const total = await getTotal(req.session.user.id, queries, params, operation);
     const pages = Math.ceil(parseInt(total) / limit);
     const todos = await getAll(req.session.user.id, sort, order, limit, offset, queries, params, operation);
-    const avatarResult = await getAvatarByEmail(req.session.user.email);
-    const avatar = avatarResult ? avatarResult.avatar : null;
-    const avatarPath = avatar ? `/images/${req.session.user.email}/${avatar}` : null;
     const searchPage = Object.keys(req.query)
       .filter((key) => key !== "page")
       .map((key) => key + "=" + req.query[key])
       .join("&");
-
+    const avatarResult = await getAvatarByEmail(req.session.user.email);
+    const avatar = avatarResult ? avatarResult.avatar : null;
+    const avatarPath = avatar ? `/images/${req.session.user.email}/${avatar}` : null;
     res.render("todos", {
       user: { ...req.session.user, avatarPath },
-      title: "BREADS (Browse, Read, Edit, Add, Delete, Sort)",
-      cardTitle: "PostgreSQL Breads (Browse, Read, Edit, Add, Delete, Sort)",
+      title: "PostgreSQL Breads (Browse, Read, Edit, Add, Delete, Sort)",
       todos,
       page: parseInt(page),
       total,
@@ -66,13 +64,18 @@ router.get("/", checkSession, async (req, res, next) => {
   }
 });
 
-router.get("/add", checkSession, (_, res) => {
-  res.render("todos/form", { title: "Adding Data", todo: null });
+router.get("/add", checkSession, (req, res) => {
+  res.render("todos/form", { title: "Adding Data", todo: null, success: req.flash("success"), error: req.flash("error") });
 });
 
 router.post("/add", checkSession, async (req, res, next) => {
   try {
     const { title } = req.body;
+    if (title.trim() === "") {
+      req.flash("error", "Title is required.");
+      res.redirect("/todos/add");
+      return;
+    }
     await create(title, req.session.user.id);
     res.redirect("/todos");
   } catch (error) {
@@ -83,7 +86,7 @@ router.post("/add", checkSession, async (req, res, next) => {
 router.get("/edit/:id", checkSession, async (req, res, next) => {
   try {
     const todo = await getById(req.params.id);
-    res.render("todos/form", { title: "Updating Data", todo });
+    res.render("todos/form", { title: "Updating Data", todo, success: req.flash("success"), error: req.flash("error") });
   } catch (error) {
     next(error);
   }
@@ -93,6 +96,11 @@ router.post("/edit/:id", checkSession, async (req, res, next) => {
   try {
     const { title, deadline, complete } = req.body;
     const formattedDeadline = new Date(deadline);
+    if (title.trim() === "") {
+      req.flash("error", "Title is required.");
+      res.redirect(`/todos/edit/${req.params.id}`);
+      return;
+    }
     await update(req.params.id, title, formattedDeadline, complete === "on");
     res.redirect("/todos");
   } catch (error) {

@@ -48,13 +48,17 @@ router.post("/register", checkSession, async (req, res) => {
     res.redirect("/register");
     return;
   }
+  if (password.trim() === "") {
+    req.flash("error", "Password is required");
+    res.redirect("/register");
+    return;
+  }
   try {
     const getUser = await getByEmail(email);
     if (getUser) {
       req.flash("error", "Email already registered");
       res.redirect("/register");
     } else {
-      console.log(req.headers["content-type"]);
       const hashedPassword = await bcrypt.hash(password, 10);
       await create(email, hashedPassword);
       req.flash("success", "Registration successful. Please sign in.");

@@ -11,20 +11,17 @@ const getAll = (user_id, sort, order, limit, offset, queries, params, operation)
   }
   let query = `SELECT t.* FROM todos as t LEFT JOIN users as u ON t.user_id = u.id WHERE t.user_id = $1`;
   if (queries.length > 0) {
-    query += ` AND ${queries.join(` ${operation} `)}`;
+    query += ` AND (${queries.join(` ${operation} `)})`;
   }
-  console.log("Params: ", params);
   query += ` ORDER BY ${sort} ${order} LIMIT $${params.length + 2} OFFSET $${params.length + 3}`;
-  console.log("get all: ", query);
   return db.query(query, [user_id, ...params, limit, offset]).then((result) => result.rows);
 };
 
 const getTotal = (user_id, queries, params, operation) => {
   let query = "SELECT COUNT(*) AS total FROM todos WHERE user_id = $1";
   if (queries.length > 0) {
-    query += ` AND ${queries.join(` ${operation} `)}`;
+    query += ` AND (${queries.join(` ${operation} `)})`;
   }
-  console.log("Total: ", query);
   return db.query(query, [user_id, ...params]).then((result) => result.rows[0].total);
 };
 
