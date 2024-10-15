@@ -24,11 +24,11 @@ router.post("/", checkSession, async (req, res) => {
   try {
     const user = await getByEmail(email);
     if (!user || user.email !== email) {
-      req.flash("error", "Invalid email");
+      req.flash("error", "Email or Password is wrong");
       return res.redirect("/");
     }
     if (!bcrypt.compareSync(password, user.password)) {
-      req.flash("error", "Password is wrong");
+      req.flash("error", "Email or Password is wrong");
       return res.redirect("/");
     }
     req.session.user = user;

@@ -77,41 +77,44 @@
           <thead>
             <tr>
               <th scope="col" class="col-md-1">No.</th>
+              <% const baseUrl = searchPage.replace(/&?sort=[^&]*/g, '').replace(/&?order=[^&]*/g, ''); %>
               <% if (sort === 'title' && order === 'asc') { %>
               <th scope="col" class="col">
-                <a href="/todos?sort=title&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Title</a>
+                <a href="/todos?<%= baseUrl %>&sort=title&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Title</a>
               </th>
               <% } else if (sort === 'title' && order === 'desc') { %>
               <th scope="col" class="col">
-                <a href="/todos?sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Title</a>
+                <a href="/todos?<%= baseUrl %>&sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Title</a>
               </th>
               <% } else { %>
               <th scope="col" class="col">
-                <a href="/todos?sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Title</a>
+                <a href="/todos?<%= baseUrl %>&sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Title</a>
               </th>
-              <% } %> <% if (sort === 'complete' && order === 'asc') { %>
+              <% } %>
+              <% if (sort === 'complete' && order === 'asc') { %>
               <th scope="col" class="col-md-2">
-                <a href="/todos?sort=complete&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Complete</a>
+                <a href="/todos?<%= baseUrl %>&sort=complete&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Complete</a>
               </th>
               <% } else if (sort === 'complete' && order === 'desc') { %>
               <th scope="col" class="col-md-2">
-                <a href="/todos?sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Complete</a>
+                <a href="/todos?<%= baseUrl %>&sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Complete</a>
               </th>
               <% } else { %>
               <th scope="col" class="col-md-2">
-                <a href="/todos?sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Complete</a>
+                <a href="/todos?<%= baseUrl %>&sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Complete</a>
               </th>
-              <% } %> <% if (sort === 'deadline' && order === 'asc') { %>
+              <% } %>
+              <% if (sort === 'deadline' && order === 'asc') { %>
               <th scope="col" class="col-md-3">
-                <a href="/todos?sort=deadline&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Deadline</a>
+                <a href="/todos?<%= baseUrl %>&sort=deadline&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Deadline</a>
               </th>
               <% } else if (sort === 'deadline' && order === 'desc') { %>
               <th scope="col" class="col-md-3">
-                <a href="/todos?sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Deadline</a>
+                <a href="/todos?<%= baseUrl %>&sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Deadline</a>
               </th>
               <% } else { %>
               <th scope="col" class="col-md-3">
-                <a href="/todos?sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Deadline</a>
+                <a href="/todos?<%= baseUrl %>&sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Deadline</a>
               </th>
               <% } %>
               <th scope="col" class="col-md-2">Actions</th>

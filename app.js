@@ -26,6 +26,11 @@ app.use("/vendor", express.static(path.join(__dirname, "public/vendor")));
 app.use("/bootstrap", express.static(path.join(__dirname, "node_modules/bootstrap/dist")));
 app.use("/fontawesome", express.static(path.join(__dirname, "node_modules/@fortawesome/fontawesome-free")));
 
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
+
 app.use(
   session({
     secret: "CdZE5vcRS5yjVL3IWPJk44WeqLQcflzZ",
