@@ -1,13 +1,13 @@
-<%- include('../layout') %>
+<%- include('../partials/header') %>
 <div class="row">
   <div class="col-md-10 mt-3 mx-auto">
     <div class="card">
-      <div class="card-header d-flex flex-row justify-content-between p-3">
-        <div class="d-flex flex-row align-items-center">
-          <img id="profilePicture" src="<%= user.avatarPath || '/images/default64.png' %>" class="img-fluid rounded-circle" alt="User Profil Picture" />
+      <div class="card-header d-flex flex-column flex-md-row justify-content-between p-3">
+        <div class="d-flex flex-column flex-md-row align-items-center mb-3 mb-md-0">
+          <img id="profilePicture" src="<%= user.avatarPath || '/images/default64.png' %>" class="img-fluid rounded-circle mb-2 mb-md-0" alt="User Profil Picture" />
           <h3 class="mb-0 text-wrap mx-3"><%= user.email %></h3>
         </div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-md-row align-items-center mt-2 mt-md-0">
           <a class="btn btn-secondary" href="/signout" role="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
         </div>
       </div>
@@ -45,8 +45,8 @@
             <div class="col-md-9 align-self-center">
               <select class="form-select" name="complete" id="complete">
                 <option selected disabled class="d-none">&minus; Select Complete &minus;</option>
-                <option value="false" <%= search.complete === 'false' ? 'selected' : '' %>>Not Yet</option>
-                <option value="true" <%= search.complete === 'true' ? 'selected' : '' %>>Done</option>
+                <option value="false" <%=search.complete==='false' ? 'selected' : '' %>>Not Yet</option>
+                <option value="true" <%=search.complete==='true' ? 'selected' : '' %>>Done</option>
               </select>
             </div>
           </div>
@@ -56,11 +56,11 @@
             </div>
             <div class="col-md-9 align-self-center">
               <div class="form-check form-check-inline align-self-center">
-                <input class="form-check-input" type="radio" name="operation" id="or" value="OR" <%= search.operation === "OR" ? "checked" : "" %> checked />
+                <input class="form-check-input" type="radio" name="operation" id="or" value="OR" <%=search.operation==="OR" ? "checked" : "" %> checked />
                 <label class="orm-check-label" for="or">OR</label>
               </div>
               <div class="form-check form-check-inline align-self-center">
-                <input class="form-check-input" type="radio" name="operation" id="and" value="AND" <%= search.operation === "AND" ? "checked" : "" %> />
+                <input class="form-check-input" type="radio" name="operation" id="and" value="AND" <%=search.operation==="AND" ? "checked" : "" %> />
                 <label class="form-check-label" for="and">AND</label>
               </div>
             </div>
@@ -76,60 +76,57 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col" class="col-md-1">No.</th>
-              <% const baseUrl = searchPage.replace(/&?sort=[^&]*/g, '').replace(/&?order=[^&]*/g, ''); %>
-              <% if (sort === 'title' && order === 'asc') { %>
-              <th scope="col" class="col">
+              <th scope="col">No.</th>
+              <% const baseUrl=searchPage.replace(/&?sort=[^&]*/g, '' ).replace(/&?order=[^&]*/g, '' ); %> <% if (sort==='title' && order==='asc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=title&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Title</a>
               </th>
-              <% } else if (sort === 'title' && order === 'desc') { %>
-              <th scope="col" class="col">
+              <% } else if (sort==='title' && order==='desc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Title</a>
               </th>
               <% } else { %>
-              <th scope="col" class="col">
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=title&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Title</a>
               </th>
-              <% } %>
-              <% if (sort === 'complete' && order === 'asc') { %>
-              <th scope="col" class="col-md-2">
+              <% } %> <% if (sort==='complete' && order==='asc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=complete&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Complete</a>
               </th>
-              <% } else if (sort === 'complete' && order === 'desc') { %>
-              <th scope="col" class="col-md-2">
+              <% } else if (sort==='complete' && order==='desc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Complete</a>
               </th>
               <% } else { %>
-              <th scope="col" class="col-md-2">
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=complete&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Complete</a>
               </th>
-              <% } %>
-              <% if (sort === 'deadline' && order === 'asc') { %>
-              <th scope="col" class="col-md-3">
+              <% } %> <% if (sort==='deadline' && order==='asc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=deadline&order=desc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-up me-2"></i>Deadline</a>
               </th>
-              <% } else if (sort === 'deadline' && order === 'desc') { %>
-              <th scope="col" class="col-md-3">
+              <% } else if (sort==='deadline' && order==='desc' ) { %>
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort-down me-2"></i>Deadline</a>
               </th>
               <% } else { %>
-              <th scope="col" class="col-md-3">
+              <th scope="col">
                 <a href="/todos?<%= baseUrl %>&sort=deadline&order=asc" class="text-black text-decoration-none"><i class="fa-solid fa-sort me-2"></i>Deadline</a>
               </th>
               <% } %>
-              <th scope="col" class="col-md-2">Actions</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <% todos.forEach((todo, index) => { %> <% const now = new Date(); const date = new Date(todo.deadline); const day = date.getDate(); const month = date.toLocaleString('default', { month:
-            'short' }); const year = date.getFullYear(); const hours = String(date.getHours()).padStart(2, '0'); const minutes = String(date.getMinutes()).padStart(2, '0'); const formattedDate =
-            `${day} ${month} ${year} ${hours}:${minutes}`; const passedDeadline = date < now && !todo.complete; %>
+            <% todos.forEach((todo, index)=> { %> <% const now=new Date(); const date=new Date(todo.deadline); const day=date.getDate(); const month=date.toLocaleString('default', { month: 'short' });
+            const year=date.getFullYear(); const hours=String(date.getHours()).padStart(2, '0' ); const minutes=String(date.getMinutes()).padStart(2, '0' ); const formattedDate=`${day} ${month}
+            ${year} ${hours}:${minutes}`; const passedDeadline=date < now && !todo.complete; %>
             <tr class="<%= passedDeadline ? 'deadline' : '' %>">
-              <td scope="row" class="col-md-1"><%= index + offset + 1 %></td>
-              <td class="col"><%= todo.title %></td>
-              <td class="col-md-2"><%= todo.complete ? "Done" : "Not Yet" %></td>
-              <td class="col-md-3"><%= formattedDate %></td>
-              <td class="col-md-2">
+              <td scope="row"><%= index + offset + 1 %></td>
+              <td><%= todo.title %></td>
+              <td><%= todo.complete ? "Done" : "Not Yet" %></td>
+              <td><%= formattedDate %></td>
+              <td>
                 <a class="btn btn-success" href="/todos/edit/<%= todo.id %>" role="button"><i class="fa-solid fa-pen"></i></a>
                 <button type="button" class="btn btn-danger" onclick="showDeleteModal(parseInt(`<%= todo.id %>`), `<%= todo.title %>`)"><i class="fa-solid fa-trash"></i></button>
               </td>
@@ -143,58 +140,57 @@
           <a class="btn btn-primary align-items-center" href="todos/add" role="button"><i class="fa-regular fa-plus"></i></a>
           <nav aria-label="Page navigation">
             <ul class="pagination mb-0">
-              <% if (total > 0 && pages > 1) { %>
-                <!-- previous -->
-                <% if (page > 1) { %>
-                <li class="page-item">
-                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page - 1 %>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <% } %>
-          
-                <!-- first page -->
-                <li class="page-item <%= page === 1 ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %>&page=1">1</a>
-                </li>
-          
-                <!-- ellipsis before -->
-                <% if (page > 3) { %>
-                <li class="page-item disabled">
-                  <span class="page-link">...</span>
-                </li>
-                <% } %>
-          
-                <!-- page range around current page -->
-                <% for (let i = Math.max(2, page - 1); i <= Math.min(pages - 1, page + 1); i++) { %>
-                <li class="page-item <%= i === page ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= i %>"><%= i %></a>
-                </li>
-                <% } %>
-          
-                <!-- ellipsis after -->
-                <% if (page < pages - 2) { %>
-                <li class="page-item disabled">
-                  <span class="page-link">...</span>
-                </li>
-                <% } %>
-          
-                <!-- last page -->
-                <% if (pages > 1) { %>
-                <li class="page-item <%= page === pages ? 'active' : '' %>">
-                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= pages %>"><%= pages %></a>
-                </li>
-                <% } %>
-          
-                <!-- next -->
-                <% if (page < pages) { %>
-                <li class="page-item">
-                  <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page + 1 %>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-                <% } %>
-              <% } %> 
+              <% if (total> 0 && pages > 1) { %>
+              <!-- previous -->
+              <% if (page> 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page - 1 %>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <% } %>
+
+              <!-- first page -->
+              <li class="page-item <%= page === 1 ? 'active' : '' %>">
+                <a class="page-link" href="/todos?<%= searchPage %>&page=1">1</a>
+              </li>
+
+              <!-- ellipsis before -->
+              <% if (page> 3) { %>
+              <li class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+              <% } %>
+
+              <!-- page range around current page -->
+              <% for (let i=Math.max(2, page - 1); i <=Math.min(pages - 1, page + 1); i++) { %>
+              <li class="page-item <%= i === page ? 'active' : '' %>">
+                <a class="page-link" href="/todos?<%= searchPage %>&page=<%= i %>"> <%= i %> </a>
+              </li>
+              <% } %>
+
+              <!-- ellipsis after -->
+              <% if (page < pages - 2) { %>
+              <li class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+              <% } %>
+
+              <!-- last page -->
+              <% if (pages> 1) { %>
+              <li class="page-item <%= page === pages ? 'active' : '' %>">
+                <a class="page-link" href="/todos?<%= searchPage %>&page=<%= pages %>"> <%= pages %> </a>
+              </li>
+              <% } %>
+
+              <!-- next -->
+              <% if (page < pages) { %>
+              <li class="page-item">
+                <a class="page-link" href="/todos?<%= searchPage %>&page=<%= page + 1 %>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <% } %> <% } %>
             </ul>
           </nav>
         </div>
@@ -237,4 +233,6 @@
     });
   });
 </script>
+
+<%- include('../partials/footer') %>
 

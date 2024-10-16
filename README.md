@@ -21,6 +21,11 @@ To install the dependencies, run the following command:
 ```bash
 npm install
 ```
+Create an ```.env``` file in the root of your project. Add a session secret in it:
+
+```bash
+SESSION_SECRET = your_secret_key_here
+```
 
 ## Usage
 

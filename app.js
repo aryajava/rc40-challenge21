@@ -6,6 +6,7 @@ var logger = require("morgan");
 var flash = require("connect-flash");
 var session = require("express-session");
 var fileupload = require("express-fileupload");
+require("dotenv").config();
 
 var loginRouter = require("./routes/login");
 var todoRouter = require("./routes/todo");
@@ -34,21 +35,19 @@ app.use((req, res, next) => {
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("X-XSS-Protection", "1; mode=block");
   res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
-  res.setHeader("Content-Security-Policy", "default-src 'self'");
   res.setHeader("Referrer-Policy", "no-referrer");
-  res.setHeader("Permissions-Policy", "geolocation=(), midi=(), sync-xhr=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), speaker=(), fullscreen=(self), payment=()");
   res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
   res.setHeader("X-Download-Options", "noopen");
   res.setHeader("X-DNS-Prefetch-Control", "off");
-
   next();
 });
 
 app.use(
   session({
-    secret: "CdZE5vcRS5yjVL3IWPJk44WeqLQcflzZ",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false },
   })
 );
 
